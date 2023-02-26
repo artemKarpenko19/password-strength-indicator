@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@use './fs-theme' as theme;
+@use 'sass:map';
+@use 'sass:meta';
+@use '@angular/material' as mat;
+
+
+// Define theme palettes
+$theme-primary: mat.define-palette(mat.$grey-palette);
+$theme-accent: mat.define-palette(mat.$yellow-palette);
+$theme-warn: mat.define-palette(mat.$red-palette);
+$theme-success: mat.define-palette(mat.$green-palette);
+$theme-danger: mat.define-palette(mat.$orange-palette);
+
+// Create dark theme
+$dark-theme: theme.fs-dark-theme(
+  $theme-primary,
+  $theme-accent,
+  $theme-warn,
+  $theme-success,
+  $theme-danger
+);
+
+// Use dark theme colors
+$dangerpalette: map.get($dark-theme, danger);
+$successpalette: map.get($dark-theme, success);
+$dangerdefault: mat.get-color-from-palette($dangerpalette, default);
+$successdefault: mat.get-color-from-palette($successpalette, default);
+
+// Include core styles
+@include mat.core();
+@include mat.core-theme($dark-theme);
+@include mat.all-component-themes($dark-theme);
+// Add more CSS rules here...
+
+.mat-mdc-progress-bar.mat-success span {
+  border-color: mat.get-color-from-palette($successpalette, default) ;
+}
