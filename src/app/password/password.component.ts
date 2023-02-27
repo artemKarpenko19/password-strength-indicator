@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
 })
 export class PasswordComponent {
   password: string = '';
-  
+  showPassword: boolean = false;
+
   calculatePasswordStrength(): number {
     let strength = 0;
     if(this.password.length < 8) strength = 3;
@@ -33,7 +34,7 @@ export class PasswordComponent {
 
   passwordStrengthLabel(): string {
     if (this.password.length === 0) {
-      return 'Enter your password';
+      return 'Enter your password. It must contain letters, numbers and symbols';
     } else if (this.password.length < 8) {
       return 'Easy';
     } else if (this.calculatePasswordStrength() === 33.3) {
